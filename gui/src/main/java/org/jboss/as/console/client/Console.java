@@ -37,6 +37,7 @@ import org.jboss.as.console.client.core.bootstrap.ExecutionMode;
 import org.jboss.as.console.client.core.bootstrap.LoadMainApp;
 import org.jboss.as.console.client.core.bootstrap.RemoveLoadingPanel;
 import org.jboss.as.console.client.core.gin.CoreUI;
+import org.jboss.as.console.client.core.gin.GinjectorSingleton;
 import org.jboss.as.console.client.core.message.Message;
 
 import java.util.EnumSet;
@@ -53,7 +54,7 @@ import java.util.EnumSet;
  */
 public class Console implements EntryPoint {
 
-    public final static CoreUI MODULES = GWT.create(CoreUI.class);
+    public final static CoreUI MODULES = GWT.<GinjectorSingleton>create(GinjectorSingleton.class).getCoreUI();
     public final static UIConstants CONSTANTS = GWT.create(UIConstants.class);
     public final static UIMessages MESSAGES = GWT.create(UIMessages.class);
 
@@ -155,7 +156,5 @@ public class Console implements EntryPoint {
         }
         return false;
     }-*/;
-
-
 
 }

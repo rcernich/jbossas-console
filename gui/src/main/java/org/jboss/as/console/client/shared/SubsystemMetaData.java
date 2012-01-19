@@ -27,6 +27,8 @@ import org.jboss.as.console.client.Console;
 import org.jboss.as.console.client.core.NameTokens;
 import org.jboss.as.console.client.shared.model.SubsystemRecord;
 
+import com.google.gwt.core.client.GWT;
+
 /**
  * @author Heiko Braun
  * @date 3/29/11
@@ -110,6 +112,9 @@ public class SubsystemMetaData {
 
         groups.get(OTHER).getItems().add(new SubsystemGroupItem("SAR", "sar",Boolean.TRUE));
         groups.get(OTHER).getItems().add(new SubsystemGroupItem("Arquillian", "arquillian",Boolean.TRUE));
+        
+        SubsystemExtensionProcessor extensionProcessor = GWT.create(SubsystemExtensionProcessor.class);
+        extensionProcessor.processExtensions(groups);
     }
 
     public static Map<String, SubsystemGroup> getGroups() {

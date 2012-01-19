@@ -20,7 +20,8 @@
 package org.jboss.as.console.client.standalone;
 
 import com.google.gwt.user.client.ui.DisclosurePanel;
-import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -44,13 +45,13 @@ public class LHSStandaloneNavigation {
 
     private VerticalPanel stack;
 
-    private VerticalPanel layout;
+    private Panel layout;
     private LHSNavTree subsysTree;
 
     public LHSStandaloneNavigation() {
         super();
 
-        layout = new VerticalPanel();
+        layout = new ScrollPanel();
         layout.setStyleName("fill-layout-width");
 
         stack = new VerticalPanel();

@@ -146,6 +146,7 @@
                 <configuration>
                     <descriptors>
                         <descriptor>scripts/assembly.xml</descriptor>
+                        <descriptor>scripts/assembly-library.xml</descriptor>
                     </descriptors>
                 </configuration>
                 <executions>
