@@ -45,11 +45,12 @@ import org.jboss.as.console.client.core.bootstrap.ExecutionMode;
 import org.jboss.as.console.client.core.bootstrap.LoadMainApp;
 import org.jboss.as.console.client.core.bootstrap.RegisterSubsystems;
 import org.jboss.as.console.client.core.bootstrap.RemoveLoadingPanel;
-import org.jboss.as.console.client.core.gin.Composite;
+import org.jboss.as.console.client.core.gin.CoreUI;
+import org.jboss.as.console.client.core.gin.GinjectorSingleton;
 import org.jboss.as.console.client.core.message.Message;
 import org.jboss.as.console.client.core.message.MessageCenter;
-import org.jboss.as.console.client.plugins.SubsystemRegistry;
 import org.jboss.as.console.client.shared.help.HelpSystem;
+import org.jboss.as.console.spi.client.plugins.SubsystemRegistry;
 
 import java.util.EnumSet;
 
@@ -65,7 +66,7 @@ import java.util.EnumSet;
  */
 public class Console implements EntryPoint {
 
-    public final static Composite MODULES = GWT.create(Composite.class);
+    public final static CoreUI MODULES = GWT.<GinjectorSingleton>create(GinjectorSingleton.class).getCoreUI();
     public final static UIConstants CONSTANTS = GWT.create(UIConstants.class);
     public final static UIDebugConstants DEBUG_CONSTANTS = GWT.create(UIDebugConstants.class);
     public final static UIMessages MESSAGES = GWT.create(UIMessages.class);

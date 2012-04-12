@@ -59,7 +59,7 @@ import org.junit.Test;
 public class EntityToDmrBridgeImplTest extends GWTTestCase {
     @Override
     public String getModuleName() {
-        return "org.jboss.as.console.App";
+        return "org.jboss.as.console.composite.App";
     }
 
     @Test

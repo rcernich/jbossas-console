@@ -1,0 +1,18 @@
+package org.jboss.as.console.composite.client;
+
+import com.google.gwt.core.client.GWT;
+
+import org.jboss.as.console.client.core.gin.CoreUI;
+import org.jboss.as.console.client.core.gin.GinjectorSingleton;
+
+public class CompositeGinjectorSingleton implements GinjectorSingleton {
+
+    // NOTE: this class was generated. don't modify it manually.
+
+    private static final CompositeGinjector INSTANCE = GWT.create(CompositeGinjector.class);
+    
+    public CoreUI getCoreUI() {
+        return INSTANCE;
+    }
+
+}

@@ -1,9 +1,12 @@
 
-package org.jboss.as.console.client.plugins;
+package org.jboss.as.console.composite.client;
+
+import org.jboss.as.console.spi.client.plugins.SubsystemExtension;
+import org.jboss.as.console.spi.client.plugins.SubsystemRegistry;
 
 import java.util.*;
 
-public class SubsystemRegistryImpl implements SubsystemRegistry{
+public class SubsystemRegistryImpl implements SubsystemRegistry {
 
     private List<SubsystemExtension> list;
 
@@ -11,14 +14,14 @@ public class SubsystemRegistryImpl implements SubsystemRegistry{
 
         list = new ArrayList<SubsystemExtension>();
 
-        <#list subsystemExtensions as subsystem>
-            list.add(new SubsystemExtension(
-                "${subsystem.getName()}",
-                "${subsystem.getToken()}",
-                "${subsystem.getGroup()}",
-                "${subsystem.getKey()}")
-            );
-        </#list>
+<#list subsystemExtensions as subsystem>
+        list.add(new SubsystemExtension(
+            "${subsystem.getName()}",
+            "${subsystem.getToken()}",
+            "${subsystem.getGroup()}",
+            "${subsystem.getKey()}")
+        );
+</#list>
 
     }
 

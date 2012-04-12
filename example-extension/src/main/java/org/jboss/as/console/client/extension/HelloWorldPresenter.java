@@ -9,10 +9,8 @@ import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.proxy.Place;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.Proxy;
-import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
-import org.jboss.as.console.client.core.MainLayoutPresenter;
 import org.jboss.as.console.client.extension.model.DataModel;
-import org.jboss.as.console.client.shared.BeanFactory;
+import org.jboss.as.console.client.extension.model.DataModelFactory;
 import org.jboss.as.console.client.shared.subsys.RevealStrategy;
 import org.jboss.as.console.spi.Subsystem;
 
@@ -23,7 +21,7 @@ import org.jboss.as.console.spi.Subsystem;
 public class HelloWorldPresenter extends Presenter<HelloWorldPresenter.MyView, HelloWorldPresenter.MyProxy> {
 
     private final PlaceManager placeManager;
-    private BeanFactory factory;
+    private DataModelFactory factory;
     private RevealStrategy revealStrategy;
 
     @ProxyCodeSplit
@@ -40,7 +38,7 @@ public class HelloWorldPresenter extends Presenter<HelloWorldPresenter.MyView, H
     @Inject
     public HelloWorldPresenter(
             EventBus eventBus, MyView view, MyProxy proxy,
-            PlaceManager placeManager, BeanFactory factory,
+            PlaceManager placeManager, DataModelFactory factory,
             RevealStrategy revealStrategy) {
         super(eventBus, view, proxy);
 

@@ -1,4 +1,4 @@
-package org.jboss.as.console.client.plugins;
+package org.jboss.as.console.spi.client.plugins;
 
 /**
  * @author Heiko Braun

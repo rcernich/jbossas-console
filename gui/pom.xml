@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <name>JBoss 7 - Management Console :: GUI</name>
-    <groupId>org.jboss.as</groupId>
-    <artifactId>jboss-as-console</artifactId>
-    <packaging>war</packaging>
+    <name>JBoss 7 - Management Console :: Core GUI</name>
+    <artifactId>jboss-as-console-core</artifactId>
+    <packaging>jar</packaging>
 
     <!-- Parent -->
     <parent>
@@ -15,7 +15,6 @@
     </parent>
 
     <properties>
-        <gwt.maven>2.3.0</gwt.maven>
         <console.profile>jboss</console.profile>
         <product.version>7.1</product.version>
         <gwt.bindAddress>127.0.0.1</gwt.bindAddress>
@@ -46,17 +45,10 @@
             <artifactId>console-spi</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>console-spi</artifactId>
-            <classifier>sources</classifier>
-        </dependency>
-
         <!-- GWT -->
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -73,20 +65,6 @@
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <classifier>sources</classifier>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -97,7 +75,6 @@
         <dependency>
             <groupId>com.gwtplatform</groupId>
             <artifactId>gwtp-mvp-client</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -126,8 +103,6 @@
 
     <!-- Plugins -->
     <build>
-        <finalName>as7-console</finalName>
-        <outputDirectory>war/WEB-INF/classes</outputDirectory>
 
         <resources>
             <resource>
@@ -140,7 +115,6 @@
             <plugin>
                 <groupId>org.zanata</groupId>
                 <artifactId>zanata-maven-plugin</artifactId>
-                <version>1.5.0</version>
                 <configuration>
                     <projectType>properties</projectType>
                     <includes>src/main/java/org/jboss/as/console/client/core/UIConstants.properties,src/main/java/org/jboss/as/console/client/core/UIMessages.properties</includes>
@@ -151,133 +125,45 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
-                <version>${gwt.maven}</version>
                 <configuration>
-                    <inplace>true</inplace>
                     <logLevel>TRACE</logLevel>
-                    <runTarget>App.html</runTarget>
-                    <warSourceDirectory>war</warSourceDirectory>
                     <extraJvmArgs>-Xmx512m -DDEBUG -XX:MaxPermSize=256M</extraJvmArgs>
-                    <servicePattern>**/*Service.java</servicePattern>
-                    <style>OBF</style>
-                    <hostedWebapp>war</hostedWebapp>
-                    <localWorkers>2</localWorkers>
-                    <compileReport>false</compileReport>
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>clean</goal>
                             <goal>resources</goal>
-                            <goal>compile</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2.1</version>
-                <configuration>
-                    <descriptors>
-                        <descriptor>scripts/assembly.xml</descriptor>
-                        <descriptor>scripts/export.xml</descriptor>
-                    </descriptors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.bsc.maven</groupId>
                 <artifactId>maven-processor-plugin</artifactId>
-                <version>2.0.6-redhat</version>
                 <executions>
                     <execution>
                         <id>process</id>
                         <goals>
                             <goal>process</goal>
                         </goals>
-                        <phase>generate-sources</phase>
+                        <phase>generate-test-sources</phase>
                         <configuration>
                             <outputDiagnostics>false</outputDiagnostics>
+                            <addOutputDirectoryToCompilationSources>false</addOutputDirectoryToCompilationSources>
                             <processors>
                                 <processor>org.jboss.as.console.spi.ExtensionProcessor</processor>
-                                <processor>org.jboss.as.console.spi.ExtensionBindingProcessor</processor>
-                                <processor>org.jboss.as.console.spi.BeanFactoryProcessor</processor>
-                                <processor>org.jboss.as.console.spi.SubsystemProcessor</processor>
                             </processors>
+                            <defaultOutputDirectory>${project.build.directory}/generated-test-sources/apt</defaultOutputDirectory>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
 
             <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.1-beta-1</version>
-                <configuration>
-                    <warSourceDirectory>war</warSourceDirectory>
-                    <webappDirectory>war</webappDirectory>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.2</version>
                 <executions>
-                    <execution>
-                        <id>clean.war</id>
-                        <phase>clean</phase>
-                        <configuration>
-                            <tasks>
-                                <!--
-                                    The gwt-maven-plugin use the war source folder
-                                    as it's build directory. We need to cleanup after we'd run
-                                    the plugin and remove all GWT related artifacts that are required
-                                    to run the hosted mode.
-                                -->
-                                <delete dir="war/WEB-INF/classes"/>
-                                <delete dir="war/WEB-INF/lib"/>
-                                <delete dir="war/WEB-INF/deploy"/>
-                                <!--delete file="war/WEB-INF/jboss-web.xml"/>
-                                <delete file="war/WEB-INF/web.xml"/-->
-                                <delete dir="war/app"/>
-                                <delete dir="war/dmr_gwt"/>
-                                <delete dir="war/org.jboss.as.console.App.JUnit"/>
-                                <delete dir="target"/>
-
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-
                     <execution>
                         <id>generate-version-class</id>
                         <phase>generate-sources</phase>
@@ -293,7 +179,7 @@
                                     <property file="build.number"/>
                                     <property name="version" value="${project.version}"/>
                                     <property name="build.user" value="${user.name}"/>
-                                    <property name="src.dir" value="${project.build.directory}/generated-sources" />
+                                    <property name="src.dir" value="${project.build.directory}/generated-sources/ant" />
                                     <property name="console.profile" value="${console.profile}" />
                                     <property name="product.version" value="${product.version}" />
 
@@ -302,27 +188,10 @@
                                 </ant>
                             </tasks>
                             <sourceRoot>
-                                ${project.build.directory}/generated-sources
+                                ${project.build.directory}/generated-sources/ant
                             </sourceRoot>
                         </configuration>
                     </execution>
-
-                    <execution>
-                        <id>fake.war</id>
-                        <phase>verify</phase>
-                        <configuration>
-                            <tasks>
-                                <echo>Replace the war file with a fake.war</echo>
-                                <copy file="build.number" todir="fake_war" overwrite="true"/>
-                                <zip destfile="./target/fake.war" basedir="fake_war"/>
-                                <copy file="./target/fake.war" tofile="./target/as7-console.war" overwrite="true" verbose="true"/>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-
 
                     <execution>
                         <id>custom.styles</id>
@@ -361,8 +230,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <additionalClasspathElements>
-                        <additionalClasspathElement>${basedir}/war/WEB-INF/classes/</additionalClasspathElement>
-                        <additionalClasspathElement>${basedir}/target/generated-sources/</additionalClasspathElement>
+                        <additionalClasspathElement>${basedir}/target/classes/</additionalClasspathElement>
+                        <additionalClasspathElement>${basedir}/target/generated-sources/ant</additionalClasspathElement>
+                        <additionalClasspathElement>${basedir}/target/test-classes/</additionalClasspathElement>
+                        <additionalClasspathElement>${basedir}/target/generated-test-sources/apt</additionalClasspathElement>
                         <additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
                     </additionalClasspathElements>
                     <includes>
@@ -384,77 +255,42 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/ant</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                   <execution>
+                        <id>add-test-source</id>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-test-sources/apt</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <profiles>
         <profile>
-            <id>quick-hosted-mode</id>
-            <activation>
-                <property>
-                    <name>hosted</name>
-                </property>
-            </activation>
-            <properties>
-                <google.webtoolkit.compileSkip>true</google.webtoolkit.compileSkip>
-                <o>true</o> <!-- offline -->
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>gwt-maven-plugin</artifactId>
-                        <version>${gwt.maven}</version>
-                        <configuration>
-                            <draftCompile>true</draftCompile>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
             <id>dev</id>
-            <properties>
-                <skipTests>true</skipTests>
-            </properties>
             <build>
                 <plugins>
-
-
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>gwt-maven-plugin</artifactId>
-                        <version>${gwt.maven}</version>
-                        <configuration>
-                            <disableCastChecking>true</disableCastChecking>
-                            <disableClassMetadata>true</disableClassMetadata>
-                            <optimizationLevel>9</optimizationLevel>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.2</version>
-                        <executions>
-
-                            <execution>
-                                <id>custom.styles</id>
-                                <phase>process-resources</phase>
-                                <configuration>
-                                    <tasks>
-                                        <copy file="src/main/templates/App.dev.gwt.xml" tofile="src/main/java/org/jboss/as/console/App.gwt.xml" overwrite="true" verbose="true"/>
-                                        <replace file="src/main/java/org/jboss/as/console/App.gwt.xml" token="@ballroom_theme@" value="org.jboss.ballroom.Framework" summary="yes"/>
-                                    </tasks>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
@@ -464,41 +300,6 @@
                     </plugin>
                 </plugins>
             </build>
-
-        </profile>
-
-
-        <profile>
-            <id>compile-report</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>gwt-maven-plugin</artifactId>
-                        <version>${gwt.maven}</version>
-                        <configuration>
-                            <compileReport>true</compileReport>
-                        </configuration>
-                    </plugin>
-                </plugins>
-
-            </build>
-
-            <reporting>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>gwt-maven-plugin</artifactId>
-                        <reportSets>
-                            <reportSet>
-                                <reports>
-                                    <report>compile-report</report>
-                                </reports>
-                            </reportSet>
-                        </reportSets>
-                    </plugin>
-                </plugins>
-            </reporting>
         </profile>
 
         <profile>
@@ -512,7 +313,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.2</version>
                         <executions>
 
                             <execution>
@@ -536,12 +336,4 @@
 
     </profiles>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>gwtplatform.plugin</id>
-            <name>Gwtplatform custom plugin repository</name>
-            <url>http://maven.gwt-platform.googlecode.com/hg/</url>
-            <layout>default</layout>
-        </pluginRepository>
-    </pluginRepositories>
 </project>

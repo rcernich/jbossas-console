@@ -1,6 +1,6 @@
 <!--
   ~ JBoss, Home of Professional Open Source
-  ~ Copyright 2011 Red Hat Inc. and/or its affiliates and other contributors
+  ~ Copyright 2012 Red Hat Inc. and/or its affiliates and other contributors
   ~ as indicated by the @author tags. All rights reserved.
   ~ See the copyright.txt in the distribution for a
   ~ full listing of individual contributors.
@@ -17,10 +17,17 @@
   ~ MA  02110-1301, USA.
   -->
 
-<module rename-to="Extension">
+<module rename-to="app">
 
-    <inherits name="org.jboss.as.console.App"/>
+    <inherits name="org.jboss.as.console.composite.App"/>
 
-    <source path='client'/>
+    <extend-property name="log_level" values="DEBUG"/>
+    <set-property name="log_level" value="DEBUG"/>
+
+    <extend-property name="locale" values="en"/>
+    <set-property-fallback name="locale" value="en"/>
+    <set-property name="locale" value="en"/>
+
+    <set-property name="user.agent" value="safari,gecko1_8"/>
 
 </module>

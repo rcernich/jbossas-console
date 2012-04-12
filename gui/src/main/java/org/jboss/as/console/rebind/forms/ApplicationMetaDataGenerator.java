@@ -46,7 +46,7 @@ import java.util.List;
  */
 public class ApplicationMetaDataGenerator extends Generator{
 
-    private static final String BEAN_FACTORY_NAME = "org.jboss.as.console.client.shared.BeanFactory";
+    private static final String BEAN_FACTORY_NAME = "org.jboss.as.console.composite.client.CompositeBeanFactory";
     /**
      * Simple name of class to be generated
      */

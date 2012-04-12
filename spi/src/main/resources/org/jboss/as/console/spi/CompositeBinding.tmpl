@@ -1,0 +1,29 @@
+package org.jboss.as.console.composite.client;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+
+import org.jboss.as.console.spi.client.plugins.SubsystemRegistry;
+
+public class CompositeBinding extends AbstractGinModule {
+
+    // NOTE: this class was generated. don't modify it manually.
+    protected void configure() {
+        bind(CompositeBeanFactory.class).toProvider(BeanFactoryProvider.class);
+        bind(SubsystemRegistry.class).to(SubsystemRegistryImpl.class).in(Singleton.class);
+	
+<#list extensions as ext>
+        bind(${ext}.class).toProvider(BeanFactoryProvider.class);
+</#list>
+    }
+
+    static class BeanFactoryProvider implements Provider<CompositeBeanFactory> {
+    	private static final CompositeBeanFactory INSTANCE = GWT.create(CompositeBeanFactory.class);
+        public CompositeBeanFactory get() {
+            return INSTANCE;
+        }
+    }
+
+}

@@ -21,9 +21,9 @@ package org.jboss.as.console.client.shared;
 
 import org.jboss.as.console.client.Console;
 import org.jboss.as.console.client.core.NameTokens;
-import org.jboss.as.console.client.plugins.SubsystemExtension;
-import org.jboss.as.console.client.plugins.SubsystemRegistry;
 import org.jboss.as.console.client.shared.model.SubsystemRecord;
+import org.jboss.as.console.spi.client.plugins.SubsystemExtension;
+import org.jboss.as.console.spi.client.plugins.SubsystemRegistry;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

@@ -17,9 +17,7 @@
   ~ MA  02110-1301, USA.
   -->
 
-<module rename-to="Extension">
-
-    <inherits name="org.jboss.as.console.App"/>
+<module rename-to="ConsoleSPI">
 
     <source path='client'/>
 

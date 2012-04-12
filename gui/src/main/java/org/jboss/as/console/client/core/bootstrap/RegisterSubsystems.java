@@ -1,9 +1,9 @@
 package org.jboss.as.console.client.core.bootstrap;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import org.jboss.as.console.client.plugins.SubsystemRegistry;
 import org.jboss.as.console.client.shared.SubsystemMetaData;
 import org.jboss.as.console.client.shared.dispatch.AsyncCommand;
+import org.jboss.as.console.spi.client.plugins.SubsystemRegistry;
 
 /**
  * @author Heiko Braun

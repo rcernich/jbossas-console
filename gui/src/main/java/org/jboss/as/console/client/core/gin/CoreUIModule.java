@@ -84,8 +84,6 @@ import org.jboss.as.console.client.domain.profiles.ProfileMgmtPresenter;
 import org.jboss.as.console.client.domain.profiles.ProfileMgmtView;
 import org.jboss.as.console.client.domain.runtime.DomainRuntimePresenter;
 import org.jboss.as.console.client.domain.runtime.DomainRuntimeView;
-import org.jboss.as.console.client.plugins.SubsystemRegistry;
-import org.jboss.as.console.client.plugins.SubsystemRegistryImpl;
 import org.jboss.as.console.client.shared.dispatch.DispatchAsync;
 import org.jboss.as.console.client.shared.dispatch.HandlerMapping;
 import org.jboss.as.console.client.shared.dispatch.InvocationMetrics;
@@ -198,7 +196,7 @@ import org.jboss.as.console.client.standalone.deployment.DeploymentListView;
 import org.jboss.as.console.client.standalone.runtime.StandaloneRuntimePresenter;
 import org.jboss.as.console.client.standalone.runtime.StandaloneRuntimeView;
 import org.jboss.as.console.client.widgets.forms.ApplicationMetaData;
-import org.jboss.as.console.spi.GinExtensionBinding;
+import org.jboss.as.console.spi.client.plugins.SubsystemRegistry;
 
 /**
  * Provides the bindings for the core UI widgets.
@@ -206,13 +204,9 @@ import org.jboss.as.console.spi.GinExtensionBinding;
  * @author Heiko Braun
  * @date 1/31/11
  */
-@GinExtensionBinding
 public class CoreUIModule extends AbstractPresenterModule {
 
     protected void configure() {
-
-        // SPI first
-        bind(SubsystemRegistry.class).to(SubsystemRegistryImpl.class).in(Singleton.class);
 
         // static injections
         requestStaticInjection(RuntimeBaseAddress.class);

@@ -21,6 +21,8 @@
 
     <inherits name="com.google.gwt.i18n.I18N"/>
     <inherits name="org.jboss.dmr.DMR"/>
+    <inherits name="org.jboss.as.console.spi.ConsoleSPI"/>
+    <inherits name="org.jboss.ballroom.Additions"/>
 
 
     <inherits name="@ballroom_theme@"/>
@@ -37,10 +39,6 @@
 	<inherits name="com.google.gwt.user.Debug"/>
 	<set-property name="gwt.enableDebugId" value="true"/>   
     
-
-    <define-configuration-property name="gin.ginjector" is-multi-valued="false" />
-    <set-configuration-property name="gin.ginjector"
-                                value="org.jboss.as.console.client.core.gin.Composite" />
 
     <set-property name="log_ConsoleLogger" value="ENABLED" />
     <set-property name="log_GWTLogger" value="ENABLED" />
@@ -86,6 +84,8 @@
     <set-property name="locale" value="en,de,es,fr,pt_BR,zh_Hans,ja"/>
 
     <stylesheet src="lab.css" />
+    
+    <source path='client'/>
 
     <entry-point class='org.jboss.as.console.client.Console'/>
 

@@ -128,7 +128,7 @@ import org.jboss.as.console.spi.BeanFactoryExtension;
  */
 @Category(PropertyRecordCategory.class)
 @BeanFactoryExtension
-public interface CoreBeanFactory {
+public interface BeanFactory extends AutoBeanFactory {
 
     AutoBean<ProfileRecord> profile();
     AutoBean<SubsystemRecord> subsystem();

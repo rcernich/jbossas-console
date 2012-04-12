@@ -58,7 +58,6 @@ import org.jboss.as.console.client.domain.overview.DomainOverviewPresenter;
 import org.jboss.as.console.client.domain.profiles.CurrentProfileSelection;
 import org.jboss.as.console.client.domain.profiles.ProfileMgmtPresenter;
 import org.jboss.as.console.client.domain.runtime.DomainRuntimePresenter;
-import org.jboss.as.console.client.plugins.SubsystemRegistry;
 import org.jboss.as.console.client.shared.dispatch.DispatchAsync;
 import org.jboss.as.console.client.shared.dispatch.HandlerMapping;
 import org.jboss.as.console.client.shared.dispatch.InvocationMetrics;
@@ -125,6 +124,7 @@ import org.jboss.as.console.client.standalone.runtime.StandaloneRuntimePresenter
 import org.jboss.as.console.client.standalone.runtime.VMMetricsPresenter;
 import org.jboss.as.console.client.widgets.forms.ApplicationMetaData;
 import org.jboss.as.console.spi.GinExtension;
+import org.jboss.as.console.spi.client.plugins.SubsystemRegistry;
 
 
 /**
@@ -135,8 +135,9 @@ import org.jboss.as.console.spi.GinExtension;
  * @author Heiko Braun
  * @date 1/31/11
  */
-@GinExtension
-public interface CoreUI {
+@GinExtension("org.jboss.as.console.App")
+@GinModules(CoreUIModule.class)
+public interface CoreUI extends Ginjector {
 
 
     SubsystemRegistry getSubsystemRegistry();

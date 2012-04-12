@@ -6,19 +6,18 @@ target
 build.number
 *.bak
 
-example-extension/WEB-INF
-example-extension/war/WEB-INF
-example-extension/war/app
-example-extension/war/dmr_gwt
-example-extension/src/main/java/org/jboss/as/console/App.gwt.xml
-example-extension/src/main/java/upload-proxy.properties
-example-extension/src/main/java/gwt-proxy.properties
+# eclipse project files
+.settings/
+.classpath
+.project
+.gwt/
 
-gui/war/WEB-INF
-gui/war/app
-gui/war/dmr_gwt
 gui/src/main/java/org/jboss/as/console/App.gwt.xml
 gui/src/main/java/upload-proxy.properties
 gui/src/main/java/gwt-proxy.properties
 
 gui/generated
+
+build/app/war
+
+example-app/war

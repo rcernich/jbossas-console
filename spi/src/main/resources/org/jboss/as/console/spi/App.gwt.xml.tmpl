@@ -1,6 +1,6 @@
 <!--
   ~ JBoss, Home of Professional Open Source
-  ~ Copyright 2011 Red Hat Inc. and/or its affiliates and other contributors
+  ~ Copyright 2012 Red Hat Inc. and/or its affiliates and other contributors
   ~ as indicated by the @author tags. All rights reserved.
   ~ See the copyright.txt in the distribution for a
   ~ full listing of individual contributors.
@@ -17,9 +17,18 @@
   ~ MA  02110-1301, USA.
   -->
 
-<module rename-to="Extension">
+<module rename-to="app">
 
-    <inherits name="org.jboss.as.console.App"/>
+<#list modules as module>
+    <inherits name="${module}"/>
+</#list>
+
+    <define-configuration-property name="gin.ginjector" is-multi-valued="false" />
+    <set-configuration-property name="gin.ginjector"
+                                value="org.jboss.as.console.composite.client.CompositeGinjector" />
+    <replace-with class="org.jboss.as.console.composite.client.CompositeGinjectorSingleton">
+        <when-type-is class="org.jboss.as.console.client.core.gin.GinjectorSingleton" />
+    </replace-with>
 
     <source path='client'/>
 

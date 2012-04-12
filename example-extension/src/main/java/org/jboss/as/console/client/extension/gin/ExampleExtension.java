@@ -1,6 +1,9 @@
 package org.jboss.as.console.client.extension.gin;
 
 import com.google.gwt.inject.client.AsyncProvider;
+import com.google.gwt.inject.client.GinModules;
+import com.google.gwt.inject.client.Ginjector;
+
 import org.jboss.as.console.client.extension.HelloWorldPresenter;
 import org.jboss.as.console.spi.GinExtension;
 
@@ -9,8 +12,9 @@ import org.jboss.as.console.spi.GinExtension;
  * @date 3/29/12
  */
 
-@GinExtension
-public interface ExampleExtension {
+@GinExtension("org.jboss.as.console.Extension")
+@GinModules(ExampleExtensionBinding.class)
+public interface ExampleExtension extends Ginjector {
 
     AsyncProvider<HelloWorldPresenter> getHelloWorldPresenter();
 }
